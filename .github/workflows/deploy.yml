@@ -17,12 +17,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Quartz repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0   # Quartz uses git history for last-modified dates
 
       - name: Checkout wiki content
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: 21ideas-org/21ideas-wiki
           path: wiki-content
@@ -34,7 +34,7 @@ jobs:
           cp -r wiki-content/wiki-ru/. content/ru/
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: npm
@@ -46,7 +46,7 @@ jobs:
         run: npx quartz build -d content/
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: public/
 
@@ -59,4 +59,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
