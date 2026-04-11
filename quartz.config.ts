@@ -3,11 +3,11 @@ import * as Plugin from "./quartz/plugins"
 
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "21ideas Bitcoin Wiki",
+    pageTitle: "21wiki",
     enableSPA: true,
     enablePopovers: true,
     enableToc: true,
-    analytics: { provider: "plausible" },
+    analytics: { provider: "umami" },
     locale: "en-US",
     baseUrl: "wiki.21ideas.org",
     ignorePatterns: [".obsidian", ".git", "private", "templates"],

@@ -11,7 +11,7 @@ const LanguageSwitcher: QuartzComponent = (props: QuartzComponentProps) => {
         className={`lang-link ${!isRussian ? "active" : ""}`}
         style={{ textDecoration: "none", fontWeight: !isRussian ? "bold" : "normal" }}
       >
-        🇬🇧 EN
+        EN
       </a>
       <span style={{ color: "#666" }}>|</span>
       <a 
@@ -19,7 +19,7 @@ const LanguageSwitcher: QuartzComponent = (props: QuartzComponentProps) => {
         className={`lang-link ${isRussian ? "active" : ""}`}
         style={{ textDecoration: "none", fontWeight: isRussian ? "bold" : "normal" }}
       >
-        🇷🇺 RU
+        RU
       </a>
     </div>
   )
