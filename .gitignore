@@ -9,7 +9,3 @@ tsconfig.tsbuildinfo
 private/
 .replit
 replit.nix
-
-# 21wiki content
-content/en/
-content/ru/
