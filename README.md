@@ -1,17 +1,77 @@
-# Quartz v4
+# 21wiki — Bitcoin Encyclopedia
 
-> “[One] who works with the door open gets all kinds of interruptions, but [they] also occasionally gets clues as to what the world is and what might be important.” — Richard Hamming
+A bilingual Bitcoin knowledge base built from [21ideas.org](https://21ideas.org) source material.
+Available in English and Russian, published at [wiki.21ideas.org](https://wiki.21ideas.org).
 
-Quartz is a set of tools that helps you publish your [digital garden](https://jzhao.xyz/posts/networked-thought) and notes as a website for free.
+[**Open in English →**](https://wiki.21ideas.org/en) · [**Открыть на русском →**](https://wiki.21ideas.org/ru)
 
-🔗 Read the documentation and get started: https://quartz.jzhao.xyz/
+---
 
-[Join the Discord Community](https://discord.gg/cRFFHYye7t)
+## What is 21wiki?
 
-## Sponsors
+21wiki is a structured, navigable Bitcoin encyclopedia maintained by [Tony](https://njump.me/npub10awzknjg5r5lajnr53438ndcyjylgqsrnrtq5grs495v42qc6awsj45ys7) and the [21ideas](https://21ideas.org) project — a Russian-language Bitcoin education platform.
 
-<p align="center">
-  <a href="https://github.com/sponsors/jackyzha0">
-    <img src="https://cdn.jsdelivr.net/gh/jackyzha0/jackyzha0/sponsorkit/sponsors.svg" />
-  </a>
-</p>
+The wiki covers:
+- **Core concepts** — money, proof of work, mining, scarcity, privacy, security, Lightning Network
+- **Protocol** — UTXO, SegWit, Taproot, BIPs, difficulty adjustment, mempool
+- **History** — Genesis Files, cypherpunk origins, the blocksize war, Bitcoin timeline
+- **Practice** — self-custody, running a node, privacy tools, buying bitcoin
+- **People** — Satoshi Nakamoto, Hal Finney, Nick Szabo, Adam Back, and others
+- **Books** — summaries of key Bitcoin texts
+
+Both language layers are independent syntheses from the same source material — not translations of each other.
+
+## Content repository
+
+Wiki content (markdown source files) lives in a separate repository:
+[21ideas-org/21ideas-wiki](https://github.com/21ideas-org/21ideas-wiki)
+
+This repository contains only the site engine and deployment configuration.
+
+## Built with
+
+- [Quartz v4](https://github.com/jackyzha0/quartz) — static site generator for Obsidian vaults
+- GitHub Pages — hosting
+- GitHub Actions — automated builds
+
+## Running locally
+
+Requires Node.js 22+.
+
+```bash
+git clone https://github.com/21ideas-org/21ideas-quartz.git
+cd 21ideas-quartz
+
+# Clone wiki content
+git clone https://github.com/21ideas-org/21ideas-wiki.git ../21ideas-wiki
+
+# Copy content into build tree
+mkdir -p content/en content/ru
+cp -r ../21ideas-wiki/wiki-en/. content/en/
+cp -r ../21ideas-wiki/wiki-ru/. content/ru/
+
+# Install and build
+npm install
+npx quartz build -d content/
+
+# Serve locally
+npx serve public -l 8080
+```
+
+Then open `http://localhost:8080`.
+
+## Deploying
+
+Deployments are triggered manually via GitHub Actions:
+
+`Actions → Deploy 21wiki to GitHub Pages → Run workflow`
+
+## License
+
+MIT — see [LICENSE](LICENSE).
+
+Built as part of the [21ideas](https://21ideas.org) Bitcoin education project.
+
+## Support
+
+⚡️ Found the wiki useful? [Zap Tony a coffee](https://zapmeacoffee.com/npub10awzknjg5r5lajnr53438ndcyjylgqsrnrtq5grs495v42qc6awsj45ys7)
