@@ -28,22 +28,36 @@ export default ((opts?: Partial<ContentMetaOptions>) => {
 
     if (text) {
       const segments: (string | JSX.Element)[] = []
+      const contentMeta = i18n(cfg.locale).components.contentMeta
+      const dateReadingSep = contentMeta.dateReadingSeparator
+      const hasDate = Boolean(fileData.dates && getDate(cfg, fileData))
+      const showReading = options.showReadingTime
 
-      if (fileData.dates) {
+      if (hasDate) {
         segments.push(<Date date={getDate(cfg, fileData)!} locale={cfg.locale} />)
       }
 
-      // Display reading time if enabled
-      if (options.showReadingTime) {
+      if (hasDate && showReading && dateReadingSep !== undefined) {
+        segments.push(
+          <span>
+            {" "}
+            {dateReadingSep}{" "}
+          </span>,
+        )
+      }
+
+      if (showReading) {
         const { minutes, words: _words } = readingTime(text)
-        const displayedTime = i18n(cfg.locale).components.contentMeta.readingTime({
+        const displayedTime = contentMeta.readingTime({
           minutes: Math.ceil(minutes),
         })
         segments.push(<span>{displayedTime}</span>)
       }
 
+      const useCssComma = options.showComma && dateReadingSep === undefined
+
       return (
-        <p show-comma={options.showComma} class={classNames(displayClass, "content-meta")}>
+        <p show-comma={useCssComma} class={classNames(displayClass, "content-meta")}>
           {segments}
         </p>
       )

@@ -66,6 +66,10 @@ Pushes to `main` trigger an automatic build and deploy via GitHub Actions.
 Manual trigger also available:
 `Actions → Deploy 21wiki to GitHub Pages → Run workflow`
 
+## Analytics
+
+Visitor stats via [Umami](https://umami.is) (privacy-friendly, no cookies).
+
 ## License
 
 MIT — see [LICENSE](LICENSE).

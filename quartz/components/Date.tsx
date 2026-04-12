@@ -18,7 +18,25 @@ export function getDate(cfg: GlobalConfiguration, data: QuartzPluginData): Date 
   return data.dates?.[cfg.defaultDateType]
 }
 
+const RU_MONTHS_SHORT = [
+  "янв",
+  "фев",
+  "мар",
+  "апр",
+  "май",
+  "июн",
+  "июл",
+  "авг",
+  "сен",
+  "окт",
+  "ноя",
+  "дек",
+] as const
+
 export function formatDate(d: Date, locale: ValidLocale = "en-US"): string {
+  if (locale === "ru-RU") {
+    return `${d.getDate()} ${RU_MONTHS_SHORT[d.getMonth()]} ${d.getFullYear()}`
+  }
   return d.toLocaleDateString(locale, {
     year: "numeric",
     month: "short",

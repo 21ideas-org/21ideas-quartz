@@ -26,26 +26,26 @@ const config: QuartzConfig = {
       },
       colors: {
         lightMode: {
-          light: "#faf8f8",
-          lightgray: "#e5e5e5",
-          gray: "#b8b8b8",
-          darkgray: "#4e4e4e",
-          dark: "#2b2b2b",
-          secondary: "#284b63",
-          tertiary: "#84a59d",
-          highlight: "rgba(143, 159, 169, 0.15)",
-          textHighlight: "#fff23688",
+          light: "#f5f0e8",        // parchment page bg (not pure white)
+          lightgray: "#ddd5c8",    // borders, dividers
+          gray: "#a09080",         // muted text, icons
+          darkgray: "#3a3530",     // body text
+          dark: "#1a1612",         // headings
+          secondary: "#c94d0f",    // links, active nav — vibrant clay orange
+          tertiary: "#a06030",     // wikilinks — slightly browner, visually distinct
+          highlight: "rgba(201, 77, 15, 0.08)",
+          textHighlight: "rgba(201, 77, 15, 0.20)",
         },
         darkMode: {
-          light: "#161618",
-          lightgray: "#393639",
-          gray: "#646464",
-          darkgray: "#d4d4d4",
-          dark: "#ebebec",
-          secondary: "#7b97aa",
-          tertiary: "#84a59d",
-          highlight: "rgba(143, 159, 169, 0.15)",
-          textHighlight: "#b3aa0288",
+          light: "#16181e",        // slightly blue-grey, not warm-dark
+          lightgray: "#22252e",    // borders
+          gray: "#505870",         // muted text
+          darkgray: "#9098a8",     // body text — cool grey
+          dark: "#d8dce8",         // headings — slightly blue-white
+          secondary: "#d4722a",    // accent — burnt sienna
+          tertiary: "#b5622a",     // wikilinks — saddle, slightly browner, visually distinct
+          highlight: "rgba(212, 114, 42, 0.08)",
+          textHighlight: "rgba(212, 114, 42, 0.20)",
         },
       },
     },

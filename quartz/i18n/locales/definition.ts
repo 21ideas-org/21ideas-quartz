@@ -61,6 +61,8 @@ export interface Translation {
     }
     contentMeta: {
       readingTime: (variables: { minutes: number }) => string
+      /** When set, shown between date and reading time; the default CSS comma is not used. */
+      dateReadingSeparator?: string
     }
   }
   pages: {

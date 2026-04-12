@@ -6,6 +6,7 @@ import BodyConstructor from "../../components/Body"
 import { pageResources, renderPage } from "../../components/renderPage"
 import { FullPageLayout } from "../../cfg"
 import { pathToRoot } from "../../util/path"
+import { localeFromSlug } from "../../util/localeFromSlug"
 import { defaultContentPageLayout, sharedPageComponents } from "../../../quartz.layout"
 import { Content } from "../../components"
 import { styleText } from "util"
@@ -24,7 +25,10 @@ async function processContent(
   resources: StaticResources,
 ) {
   const slug = fileData.slug!
-  const cfg = ctx.cfg.configuration
+  const baseCfg = ctx.cfg.configuration
+  const effectiveLocale = localeFromSlug(slug, baseCfg.locale)
+  const cfg =
+    effectiveLocale === baseCfg.locale ? baseCfg : { ...baseCfg, locale: effectiveLocale }
   const externalResources = pageResources(pathToRoot(slug), resources)
   const componentData: QuartzComponentProps = {
     ctx,

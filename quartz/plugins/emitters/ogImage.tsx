@@ -2,6 +2,7 @@ import { QuartzEmitterPlugin } from "../types"
 import { i18n } from "../../i18n"
 import { unescapeHTML } from "../../util/escape"
 import { FullSlug, getFileExtension, isAbsoluteURL, joinSegments, QUARTZ } from "../../util/path"
+import { localeFromSlug } from "../../util/localeFromSlug"
 import { ImageOptions, SocialImageOptions, defaultImage, getSatoriFonts } from "../../util/og"
 import sharp from "sharp"
 import satori, { SatoriOptions } from "satori"
@@ -71,8 +72,11 @@ async function processOgImage(
   fonts: SatoriOptions["fonts"],
   fullOptions: SocialImageOptions,
 ) {
-  const cfg = ctx.cfg.configuration
+  const baseCfg = ctx.cfg.configuration
   const slug = fileData.slug!
+  const effectiveLocale = localeFromSlug(slug, baseCfg.locale)
+  const cfg =
+    effectiveLocale === baseCfg.locale ? baseCfg : { ...baseCfg, locale: effectiveLocale }
   const titleSuffix = cfg.pageTitleSuffix ?? ""
   const title =
     (fileData.frontmatter?.title ?? i18n(cfg.locale).propertyDefaults.title) + titleSuffix

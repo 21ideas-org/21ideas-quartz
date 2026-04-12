@@ -18,6 +18,7 @@ import { defaultListPageLayout, sharedPageComponents } from "../../../quartz.lay
 import { FolderContent } from "../../components"
 import { write } from "./helpers"
 import { i18n, TRANSLATIONS } from "../../i18n"
+import { localeFromSlug } from "../../util/localeFromSlug"
 import { BuildCtx } from "../../util/ctx"
 import { StaticResources } from "../../util/resources"
 interface FolderPageOptions extends FullPageLayout {
@@ -37,7 +38,10 @@ async function* processFolderInfo(
   ][]) {
     const slug = joinSegments(folder, "index") as FullSlug
     const [tree, file] = folderContent
-    const cfg = ctx.cfg.configuration
+    const baseCfg = ctx.cfg.configuration
+    const effectiveLocale = localeFromSlug(slug, baseCfg.locale)
+    const cfg =
+      effectiveLocale === baseCfg.locale ? baseCfg : { ...baseCfg, locale: effectiveLocale }
     const externalResources = pageResources(pathToRoot(slug), resources)
     const componentData: QuartzComponentProps = {
       ctx,
@@ -66,16 +70,20 @@ function computeFolderInfo(
 ): Record<SimpleSlug, ProcessedContent> {
   // Create default folder descriptions
   const folderInfo: Record<SimpleSlug, ProcessedContent> = Object.fromEntries(
-    [...folders].map((folder) => [
-      folder,
-      defaultProcessedContent({
-        slug: joinSegments(folder, "index") as FullSlug,
-        frontmatter: {
-          title: `${i18n(locale).pages.folderContent.folder}: ${folder}`,
-          tags: [],
-        },
-      }),
-    ]),
+    [...folders].map((folder) => {
+      const slug = joinSegments(folder, "index") as FullSlug
+      const folderLocale = localeFromSlug(slug, locale)
+      return [
+        folder,
+        defaultProcessedContent({
+          slug,
+          frontmatter: {
+            title: `${i18n(folderLocale).pages.folderContent.folder}: ${folder}`,
+            tags: [],
+          },
+        }),
+      ]
+    }),
   )
 
   // Update with actual content if available

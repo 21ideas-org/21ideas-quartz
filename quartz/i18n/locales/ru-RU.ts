@@ -22,7 +22,7 @@ export default {
       quote: "Цитата",
     },
     backlinks: {
-      title: "Обратные ссылки",
+      title: "Упоминания",
       noBacklinksFound: "Обратные ссылки отсутствуют",
     },
     themeToggle: {
@@ -33,13 +33,13 @@ export default {
       title: "Режим чтения",
     },
     explorer: {
-      title: "Проводник",
+      title: "Навигация",
     },
     footer: {
       createdWith: "Создано с помощью",
     },
     graph: {
-      title: "Вид графа",
+      title: "Карта связей",
     },
     recentNotes: {
       title: "Недавние заметки",
@@ -52,13 +52,14 @@ export default {
     },
     search: {
       title: "Поиск",
-      searchBarPlaceholder: "Найти что-нибудь",
+      searchBarPlaceholder: "Поиск",
     },
     tableOfContents: {
-      title: "Оглавление",
+      title: "Содержание",
     },
     contentMeta: {
-      readingTime: ({ minutes }) => `время чтения ~${minutes} мин.`,
+      readingTime: ({ minutes }) => `${minutes} мин чтения`,
+      dateReadingSeparator: "·",
     },
   },
   pages: {
