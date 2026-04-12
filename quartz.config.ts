@@ -7,7 +7,11 @@ const config: QuartzConfig = {
     enableSPA: true,
     enablePopovers: true,
     enableToc: true,
-    analytics: { provider: "umami" },
+    analytics: {
+      provider: "umami",
+      websiteId: "83e4cbf2-6146-44a2-a2d5-75438a86705b",
+      host: "https://cloud.umami.is",
+    },
     locale: "en-US",
     baseUrl: "wiki.21ideas.org",
     ignorePatterns: [".obsidian", ".git", "private", "templates"],
