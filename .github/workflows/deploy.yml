@@ -14,12 +14,12 @@ jobs:
       id-token: write
     steps:
       - name: Checkout Quartz repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Checkout wiki content
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: 21ideas-org/21ideas-wiki
           path: wiki-content
@@ -32,7 +32,7 @@ jobs:
           cp -r wiki-content/wiki-ru/. content/ru/
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: "22"
           cache: npm
@@ -44,13 +44,13 @@ jobs:
         run: npx quartz build -d content/
 
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v6
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: public/
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
