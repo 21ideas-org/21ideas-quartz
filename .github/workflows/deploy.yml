@@ -1,62 +1,56 @@
 name: Deploy 21wiki to GitHub Pages
 
 on:
-  workflow_dispatch:   # manual trigger only for now
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: false
+  workflow_dispatch:
+  repository_dispatch:
+    types: [wiki-updated]
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     steps:
       - name: Checkout Quartz repo
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0   # Quartz uses git history for last-modified dates
+          fetch-depth: 0
 
       - name: Checkout wiki content
         uses: actions/checkout@v4
         with:
           repository: 21ideas-org/21ideas-wiki
           path: wiki-content
+          fetch-depth: 0
 
-      - name: Copy wiki content into Quartz content tree
+      - name: Copy wiki content to build tree
         run: |
           mkdir -p content/en content/ru
           cp -r wiki-content/wiki-en/. content/en/
           cp -r wiki-content/wiki-ru/. content/ru/
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: "22"
           cache: npm
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Build Quartz site
+      - name: Build Quartz
         run: npx quartz build -d content/
 
-      - name: Upload Pages artifact
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: public/
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
