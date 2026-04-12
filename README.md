@@ -3,8 +3,7 @@
 A bilingual Bitcoin knowledge base built from [21ideas.org](https://21ideas.org) source material.
 Available in English and Russian, published at [wiki.21ideas.org](https://wiki.21ideas.org).
 
-[**Open in English →**](https://wiki.21ideas.org/en) · [**Открыть на русском →**](https://wiki.21ideas.org/ru)
-
+[![Open in English](https://img.shields.io/badge/Open%20in%20English-%E2%86%92-blue?style=for-the-badge)](https://wiki.21ideas.org/en) [![Открыть на русском](https://img.shields.io/badge/%D0%9E%D1%82%D0%BA%D1%80%D1%8B%D1%82%D1%8C%20%D0%BD%D0%B0%20%D1%80%D1%83%D1%81%D1%81%D0%BA%D0%BE%D0%BC-%E2%86%92-orange?style=for-the-badge)](https://wiki.21ideas.org/ru)
 ---
 
 ## What is 21wiki?
@@ -62,8 +61,9 @@ Then open `http://localhost:8080`.
 
 ## Deploying
 
-Deployments are triggered manually via GitHub Actions:
+Pushes to `main` trigger an automatic build and deploy via GitHub Actions.
 
+Manual trigger also available:
 `Actions → Deploy 21wiki to GitHub Pages → Run workflow`
 
 ## License
