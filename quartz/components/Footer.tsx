@@ -25,9 +25,6 @@ export default (() => {
             </a>
           </li>
           <li>
-            <a href={repoUrl}>GitHub</a>
-          </li>
-          <li>
             <a href={contributeHref}>{contributeLabel}</a>
           </li>
           <li>
