@@ -1,0 +1,22 @@
+# 21wiki — Bitcoin Wikipedia by 21ideas
+
+> A bilingual (English + Russian) Bitcoin knowledge base built from
+> 21ideas.org source material. Covers protocol, economics, history,
+> privacy, security, and philosophy. Read in Obsidian, published via Quartz.
+
+## English wiki
+
+- [Index](https://wiki.21ideas.org/en/): Full English wiki index
+- [Overview](https://wiki.21ideas.org/en/overview): Reading paths and structure
+- [Glossary](https://wiki.21ideas.org/en/glossary): Bitcoin terminology
+
+## Russian wiki
+
+- [Index](https://wiki.21ideas.org/ru/): Full Russian wiki index
+- [Overview](https://wiki.21ideas.org/ru/overview): Reading paths and structure
+- [Glossary](https://wiki.21ideas.org/ru/glossary): Bitcoin terminology
+
+## About
+
+- [21ideas.org](https://21ideas.org): Source material (Russian-language Bitcoin education)
+- [Sitemap](https://wiki.21ideas.org/sitemap.xml): Full site map

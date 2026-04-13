@@ -1,12 +1,13 @@
 import { QuartzConfig } from "./quartz/cfg"
 import * as Plugin from "./quartz/plugins"
+import type { JSX } from "preact"
+import { h } from "preact"
 
 const config: QuartzConfig = {
   configuration: {
     pageTitle: "21wiki",
     enableSPA: true,
     enablePopovers: true,
-    enableToc: true,
     analytics: {
       provider: "umami",
       websiteId: "83e4cbf2-6146-44a2-a2d5-75438a86705b",
@@ -53,6 +54,61 @@ const config: QuartzConfig = {
 
   plugins: {
     transformers: [
+      (() => ({
+        name: "JsonLd",
+        externalResources: (ctx) => ({
+          additionalHead: [
+            (fileData: any): JSX.Element => {
+              const slug = fileData?.slug as string | undefined
+
+              if (!slug) return null as unknown as JSX.Element
+              if (slug.startsWith("tags/")) return null as unknown as JSX.Element
+              if (slug !== "index" && slug.endsWith("/index")) return null as unknown as JSX.Element
+              if (slug === "404") return null as unknown as JSX.Element
+              if (!ctx.cfg.configuration.baseUrl) return null as unknown as JSX.Element
+
+              const inLanguage =
+                fileData?.frontmatter?.language ?? (slug.startsWith("ru/") ? "ru" : "en")
+
+              const url = `https://${ctx.cfg.configuration.baseUrl}/${slug === "index" ? "" : slug}`
+
+              const jsonLd: Record<string, unknown> = {
+                "@context": "https://schema.org",
+                "@type": slug === "index" ? "WebSite" : "Article",
+                name: fileData?.frontmatter?.title ?? slug,
+                headline: fileData?.frontmatter?.title ?? slug,
+                description: fileData?.description,
+                url,
+                inLanguage,
+                publisher: {
+                  "@type": "Organization",
+                  name: "21ideas",
+                  url: "https://21ideas.org",
+                },
+              }
+
+              if (fileData?.frontmatter?.synthesized_date) {
+                jsonLd.datePublished = fileData.frontmatter.synthesized_date
+              }
+
+              const modified =
+                fileData?.frontmatter?.updated ?? fileData?.frontmatter?.synthesized_date
+              if (modified) {
+                jsonLd.dateModified = modified
+              }
+
+              if (Array.isArray(fileData?.frontmatter?.tags) && fileData.frontmatter.tags.length) {
+                jsonLd.keywords = fileData.frontmatter.tags.join(", ")
+              }
+
+              return h("script", {
+                type: "application/ld+json",
+                dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLd) },
+              })
+            },
+          ],
+        }),
+      }))(),
       Plugin.FrontMatter(),
       Plugin.CreatedModifiedDate({ priority: ["frontmatter", "git", "filesystem"] }),
       Plugin.SyntaxHighlighting({

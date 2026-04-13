@@ -84,6 +84,12 @@ export default (() => {
 
         <link rel="icon" href={iconPath} />
         <meta name="description" content={description} />
+        {cfg.baseUrl && (
+          <link
+            rel="canonical"
+            href={`https://${cfg.baseUrl}/${fileData.slug === "index" ? "" : fileData.slug}`}
+          />
+        )}
         <meta name="generator" content="Quartz" />
 
         {css.map((resource) => CSSResourceToStyleElement(resource, true))}
