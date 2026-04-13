@@ -26,25 +26,34 @@ const LanguageSwitcher: QuartzComponent = ({ displayClass }: QuartzComponentProp
 
 LanguageSwitcher.afterDOMLoaded = `
 (function() {
-  const btn = document.querySelector('[data-lang-switcher]')
-  if (!btn) return
+  function setupLanguageSwitcher() {
+    const btn = document.querySelector('[data-lang-switcher]')
+    if (!btn) return
 
-  const slug = document.body.dataset.slug || window.location.pathname
-  const isRu = slug.startsWith("/ru") || slug.startsWith("ru/") || slug === "ru"
+    const slug = document.body.dataset.slug || window.location.pathname
+    const isRu = slug.startsWith("/ru") || slug.startsWith("ru/") || slug === "ru"
 
-  let sibling = null
-  if (slug.startsWith("ru/")) sibling = slug.slice(3)
-  else if (slug.startsWith("en/")) sibling = slug.slice(3)
-  else if (slug.startsWith("/ru/")) sibling = slug.slice(4)
-  else if (slug.startsWith("/en/")) sibling = slug.slice(4)
+    let sibling = null
+    if (slug.startsWith("ru/")) sibling = slug.slice(3)
+    else if (slug.startsWith("en/")) sibling = slug.slice(3)
+    else if (slug.startsWith("/ru/")) sibling = slug.slice(4)
+    else if (slug.startsWith("/en/")) sibling = slug.slice(4)
 
-  const targetLang = isRu ? "en" : "ru"
-  const targetUrl = sibling ? "/" + targetLang + "/" + sibling : "/" + targetLang
+    const targetLang = isRu ? "en" : "ru"
+    const targetUrl = sibling ? "/" + targetLang + "/" + sibling : "/" + targetLang
 
-  btn.setAttribute("title", isRu ? "Read in English" : "Читать на русском")
-  btn.addEventListener("click", function() {
-    window.location.href = targetUrl
-  })
+    btn.setAttribute("title", isRu ? "Read in English" : "Читать на русском")
+
+    const onClick = function() {
+      window.location.href = targetUrl
+    }
+
+    btn.addEventListener("click", onClick)
+    window.addCleanup && window.addCleanup(() => btn.removeEventListener("click", onClick))
+  }
+
+  document.addEventListener("nav", setupLanguageSwitcher)
+  setupLanguageSwitcher()
 })()
 `
 
